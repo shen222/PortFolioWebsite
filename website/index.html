@@ -1,192 +1,206 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Homepage</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>シェナル | ゲームプログラマー ポートフォリオ</title>
+<meta name="description" content="ホラーゲームを作るゲームプログラマー、シェナルのポートフォリオ。Unity / Unreal Engine。2027年卒。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--fog:#d9dcd4;--paper:#eceee8;--ink:#1c211e;--murk:#3d4741;--rust:#8c2b20;--night:#0e110f;--line:#b7bdb3}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:"Zen Kaku Gothic New",system-ui,sans-serif;background:var(--fog);color:var(--ink);line-height:1.8;font-size:17px}
+h1,h2,h3{font-family:"Shippori Mincho",serif;line-height:1.3}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--rust);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;padding:16px 24px;mix-blend-mode:difference;color:#fff}
+nav a{text-decoration:none;margin-left:20px;font-size:15px}
+nav a:first-child{margin:0;font-weight:700}
+/* hero: flashlight */
+.hero{position:relative;min-height:100svh;background:var(--night);color:#e8ebe4;display:grid;place-items:center;overflow:hidden;--x:50%;--y:42%}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle 240px at var(--x) var(--y),transparent 0,rgba(14,17,15,.55) 55%,var(--night) 100%)}
+.hero-in{position:relative;text-align:center;padding:24px}
+.hero h1{font-size:clamp(3.4rem,13vw,9rem);font-weight:800;letter-spacing:.06em;color:#f1f3ec}
+.hero p{font-size:clamp(1rem,2.4vw,1.35rem);margin-top:12px}
+.hero small{display:block;margin-top:28px;color:#9aa398;font-size:14px}
+.hero .cta{display:inline-block;margin-top:32px;padding:12px 28px;border:1px solid #e8ebe4;text-decoration:none;position:relative;z-index:2}
+.hero .cta:hover{background:var(--rust);border-color:var(--rust)}
+section{padding:96px 0}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:12px}
+.lead{color:var(--murk);max-width:60ch;margin-bottom:48px}
+/* about */
+.about{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}
+.about img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(.6) contrast(1.05)}
+.facts{list-style:none;padding:0;margin-top:24px;border-top:1px solid var(--line)}
+.facts li{display:grid;grid-template-columns:7em 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.facts b{color:var(--murk)}
+/* projects */
+.project{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;padding:48px 0;border-top:1px solid var(--line)}
+.project:nth-child(even) .media{order:2}
+.media{aspect-ratio:16/10;background:var(--night);color:#8d968a;display:grid;place-items:center;text-align:center;font-size:14px;overflow:hidden}
+.media video,.media img{width:100%;height:100%;object-fit:cover}
+.project h3{font-size:1.6rem}
+.en{color:var(--murk);font-size:15px;margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:16px 0}
+.tags li{background:var(--paper);padding:2px 12px;border-left:3px solid var(--rust);font-size:14px}
+.project ul.did{padding-left:1.2em}
+.wip{color:var(--rust);font-weight:700}
+.links a{margin-right:18px}
+/* gallery */
+.dark{background:var(--ink);color:#e4e7df}
+.dark .lead{color:#a8b0a4}
+.grid{columns:3 220px;column-gap:16px}
+.grid img{width:100%;margin-bottom:16px;display:block;cursor:zoom-in;filter:grayscale(.3);transition:filter .2s}
+#art .grid img{filter:none}
+.grid img:hover{filter:none}
+dialog{border:0;background:transparent;max-width:92vw;max-height:92vh;padding:0}
+dialog::backdrop{background:rgba(0,0,0,.88)}
+dialog img{max-width:92vw;max-height:90vh;display:block}
+footer{padding:96px 0 48px;text-align:center}
+footer a{display:inline-block;margin:8px 14px}
+.mail{font-family:"Shippori Mincho",serif;font-size:clamp(1.3rem,3vw,2rem)}
+@media(max-width:760px){.about,.project{grid-template-columns:1fr}.project:nth-child(even) .media{order:0}nav a{margin-left:12px;font-size:14px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav>
-    <a href="#hero">シェナル</a>
-  </nav>
+<nav><a href="#top">シェナル</a><span><a href="#about">私について</a><a href="#games">ゲーム</a><a href="#ui">UIデザイン</a><a href="#art">イラスト</a><a href="#contact">連絡先</a></span></nav>
 
-  <!-- Hero -->
-  <section class="hero" id="hero">
-    <div class="tagchain" id="tagchain">
-      <a href="#Illustrations" class="tag" style="top:5%; left:43%; background-image:url('/Images/KANEKI-SAMURAI TRASH-01.png');" data-desc="Motion">
-        <span class="title">イラスト</span>
-      </a>
-      <a href="#Me" class="tag" style="top:25%; left:50%; background-image:url('/Images/†.jpg');" data-desc="Portfolio">
-        <span class="title">私</span> 
-      <a href="#movies" class="tag" style="top:60%; left:48%; background-image:url('/Images/Screenshot\ 2025-08-23\ 185642.png');" data-desc="FavGames">
-        <span class="title">楽しみに</span>
-      <a href="#Work" class="tag" style="top:40%; left:40%; background-image:url('/Images/tsushima-01.png');" data-desc="Films">
-        <span class="title">自分の作品</span>
-      </a>
-    </div>
+<header class="hero" id="top">
+  <div class="hero-in">
+    <h1>シェナル</h1>
+    <p>ホラーゲームを作る、ゲームプログラマー志望</p>
+    <small>Unity / Unreal Engine ・ 2027年4月入社希望</small>
+    <a class="cta" href="#games">作品を見る</a>
+  </div>
+</header>
 
-    <!-- Social Bar -->
-    
-    <div class="social-bar">
-      <a href="https://www.linkedin.com/" target="_blank" class="social linkedin" aria-label="LinkedIn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M19 0h-14C2.239 0 0 2.239 0 5v14c0 
-          2.761 2.239 5 5 5h14c2.761 0 5-2.239 
-          5-5V5c0-2.761-2.239-5-5-5zm-11 
-          19H5V9h3v10zm-1.5-11.268c-.966 
-          0-1.75-.79-1.75-1.764s.784-1.764 
-          1.75-1.764S9 5.994 9 
-          6.968s-.784 1.764-1.75 1.764zM20 
-          19h-3v-5.604c0-3.368-4-3.113-4 
-          0V19h-3V9h3v1.414c1.396-2.586 7-2.777 
-          7 2.476V19z"/>
-        </svg>
-      </a>
-      <a href="https://www.instagram.com/" target="_blank" class="social instagram" aria-label="Instagram">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 
-          1.366.062 2.633.35 3.608 
-          1.325.975.975 1.262 2.242 
-          1.324 3.608.058 1.266.069 
-          1.646.069 4.834s-.012 3.568-.07 
-          4.834c-.062 1.366-.349 2.633-1.324 
-          3.608-.975.975-2.242 1.262-3.608 
-          1.324-1.266.058-1.646.069-4.834.069s-3.568-.012-4.834-.07c-1.366-.062-2.633-.349-3.608-1.324-.975-.975-1.262-2.242-1.324-3.608C2.175 
-          15.568 2.163 15.188 2.163 
-          12s.012-3.568.07-4.834c.062-1.366.35-2.633 
-          1.325-3.608.975-.975 2.242-1.262 
-          3.608-1.324C8.432 2.175 8.812 2.163 
-          12 2.163zm0 1.687c-3.17 
-          0-3.548.012-4.795.07-1.042.048-1.611.218-1.986.364-.5.194-.86.426-1.237.803-.377.377-.61.737-.804 
-          1.237-.146.375-.316.944-.364 
-          1.986-.058 1.247-.07 1.625-.07 
-          4.795s.012 3.548.07 4.795c.048 
-          1.042.218 1.611.364 1.986.194.5.426.86.803 
-          1.237.377.377.737.61 1.237.804.375.146.944.316 
-          1.986.364 1.247.058 1.625.07 
-          4.795.07s3.548-.012 
-          4.795-.07c1.042-.048 1.611-.218 
-          1.986-.364.5-.194.86-.426 
-          1.237-.803.377-.377.61-.737.804-1.237.146-.375.316-.944.364-1.986.058-1.247.07-1.625.07-4.795s-.012-3.548-.07-4.795c-.048-1.042-.218-1.611-.364-1.986-.194-.5-.426-.86-.803-1.237-.377-.377-.737-.61-1.237-.804-.375-.146-.944-.316-1.986-.364-1.247-.058-1.625-.07-4.795-.07zm0 3.838a5.999 
-          5.999 0 1 1 0 11.998 5.999 5.999 
-          0 0 1 0-11.998zm0 9.9a3.9 3.9 0 
-          1 0 0-7.8 3.9 3.9 0 
-          0 0 0 7.8zm7.842-10.846a1.44 
-          1.44 0 1 1-2.881 0 1.44 1.44 
-          0 0 1 2.881 0z"/>
-        </svg>
-      </a>
-      <a href="https://www.youtube.com/" target="_blank" class="social youtube" aria-label="YouTube">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M23.498 6.186a2.974 2.974 0 0 
-          0-2.09-2.103C19.691 3.5 12 
-          3.5 12 3.5s-7.691 0-9.408.583a2.974 
-          2.974 0 0 0-2.09 2.103C0 7.919 0 
-          12 0 12s0 4.081.502 5.814a2.974 
-          2.974 0 0 0 2.09 2.103C4.309 
-          20.5 12 20.5 12 20.5s7.691 
-          0 9.408-.583a2.974 2.974 0 0 0 
-          2.09-2.103C24 16.081 24 12 
-          24 12s0-4.081-.502-5.814zM9.75 
-          15.568V8.432L15.818 12 9.75 
-          15.568z"/>
-        </svg>
-      </a>
-    </div>
-
-
-    <div class="scroll-indicator">Scroll to explore</div>
-  </section>
-
-  <!-- Sections -->
-  <section id="Me" class="about-section">
-  
-    <div class="about-text">
-      <h2>私は    シェナルです</h2>
-      <h4>初心者ウェブデザイナー</h4>
-      <p><strong>2年間勉強しています</strong></p>
-      <p class="desc">
-       私は様々なものに関心がありますが、特にホラーに関することが好きです。
-       中でもホラーゲームが大好きです。それ以外ではバスケットボールをすることを好み、
-       将来は本格的で優れたホラーゲームを制作できるようになりたいと考えています.
-      </p>
-    </div>
-    <div class="about-img">
-      <img src="/Images/Sable ward.jpg" alt="Profile illustration">
-    </div>
- 
-</section>
-  <!-- Lightbox Modal -->
-
-  <div id="lightbox" class="lightbox">
-  <span class="close">&times;</span>
-  <img class="lightbox-content" id="lightbox-img" alt="Enlarged Portfolio">
-  </div> 
-
-  <section id="Work" class="content">
+<main>
+<section id="about"><div class="wrap about">
+  <img src="Images/Sable%20ward.jpg" alt="シェナルのプロフィールイラスト" loading="lazy">
   <div>
-    <h1 class="portfolio-title">PORTFOLIO</h1>
-    <div class="portfolio-grid">
-      <div class="portfolio-card">
-        <img src="/Images/jordan_pe-01.png" alt="Work 1">
-        <div class="card-labels">
-        </div>
-      </div>
-      <div class="portfolio-card">
-        <img src="/Images/Ghost_of_Tsushima_Website-01.png" alt="Work 2">
-        <div class="card-labels">
-        </div>
-      </div>
-      <div class="portfolio-card">
-        <img src="/Images/Home_Page.png" alt="Work 3">
-        <div class="card-labels">
-        </div>
-      </div>
-      <div class="portfolio-card">
-        <img src="/Images/Overwatch_1-01-01.png" alt="Work 4">
-        <div class="card-labels">
-        </div>
-      </div>
+    <h2>私について</h2>
+    <p>ホラーゲームが大好きで、「本格的で怖いホラーゲームを自分で作りたい」と思いゲーム制作を学んでいます。UnityとUnreal Engineで、実装から調整までを経験しました。UIデザインにも関心があります。</p>
+    <ul class="facts">
+      <li><b>学校</b><span>専門学校東京クールジャパン・アカデミー ゲームプログラム専攻(2027年3月卒業見込)</span></li>
+      <li><b>使える環境</b><span>Unity、Unreal Engine、Web開発(フロント/バックエンド)</span></li>
+      <li><b>日本語</b><span>JLPT N3(2024年12月合格)、日本語での業務コミュニケーション可</span></li>
+      <li><b>経験</b><span>マクドナルドでアルバイト(2024年〜)。トレーナー兼エリアリーダー</span></li>
+      <li><b>趣味</b><span>バスケットボール(約11年)</span></li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="games" style="background:var(--paper)"><div class="wrap">
+  <h2>ゲーム制作</h2>
+  <p class="lead">担当範囲と制作期間を各作品に書いています。動画で遊んでいる様子を確認できます。</p>
+
+  <article class="project">
+    <div class="media"><!-- <video src="Images/unity-horror.mp4" controls muted loop playsinline poster="Images/unity-horror.jpg"></video> -->動画をここに入れる(unity-horror.mp4)</div>
+    <div>
+      <h3>サイレントヒル風ホラー(Unity)</h3>
+      <p class="en">Silent Hill-style horror game, Unity</p>
+      <p>キーボードだけで移動と射撃を行う、往年のサバイバルホラー風のゲームです。</p>
+      <ul class="tags"><li>個人制作</li><li>約8か月</li><li>Unity</li></ul>
+      <ul class="did"><li>ゼロから全体を制作</li><li>固定的な操作感の再現(キーボードのみ)</li></ul>
+      <p class="links"><a href="#">プレイする</a><a href="#">GitHub</a></p>
     </div>
+  </article>
+
+  <article class="project">
+    <div class="media"><!-- <video src="Images/unreal-horror.mp4" controls muted loop playsinline></video> -->動画をここに入れる(unreal-horror.mp4)</div>
+    <div>
+      <h3>ホラーゲーム(Unreal Engine)</h3>
+      <p class="en">Team horror game, Unreal Engine</p>
+      <p>バイオハザード風の調べる操作を備えたホラーゲームです。</p>
+      <ul class="tags"><li>4人チーム</li><li>約6か月</li><li>Unreal Engine</li></ul>
+      <ul class="did"><li>レベルデザイン</li><li>バイオハザード風のインタラクションツールを実装</li></ul>
+      <p class="links"><a href="#">動画を見る</a></p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="media"><!-- <video src="Images/parkour.mp4" controls muted loop playsinline></video> -->動画をここに入れる(parkour.mp4)</div>
+    <div>
+      <h3>FPSパルクール(Unity)</h3>
+      <p class="en">First-person parkour movement, Unity</p>
+      <p>一人称視点で動き回る気持ちよさを追求した移動アクションです。</p>
+      <ul class="tags"><li>Unity</li></ul>
+      <ul class="did"><li>ウォールラン</li><li>ボルト(乗り越え)</li><li>クライム(よじ登り)</li></ul>
+      <p class="links"><a href="#">動画を見る</a></p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="media"><!-- <img src="Images/fps-wip.jpg" alt=""> -->スクリーンショットをここに入れる</div>
+    <div>
+      <h3>ボディカム風FPS(Unreal Engine)</h3>
+      <p class="en">Bodycam-style FPS, Unreal Engine</p>
+      <p class="wip">制作中</p>
+      <p>ボディカム視点のリアルな見た目を目指した、現在開発中のFPSです。</p>
+      <ul class="tags"><li>Unreal Engine</li></ul>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="media"><!-- <img src="Images/momofly.jpg" alt=""> -->スクリーンショットをここに入れる</div>
+    <div>
+      <h3>MomoFly 航空券予約システム</h3>
+      <p class="en">Airline ticket reservation, full-stack web app</p>
+      <p>フロントからバックエンドまで一人で作った、Webアプリです。</p>
+      <ul class="tags"><li>フルスタックWeb</li></ul>
+      <p class="links"><a href="#">デモを見る</a><a href="#">GitHub</a></p>
+    </div>
+  </article>
+</div></section>
+
+<section id="ui" class="dark"><div class="wrap">
+  <h2>UIデザイン</h2>
+  <p class="lead">ウェブサイトのUIデザインの習作です。画像をクリックすると大きく表示します。</p>
+  <div class="grid" id="gallery-ui">
+    <img src="Images/jordan_pe-01.png" alt="UIデザイン:ジョーダン" loading="lazy">
+    <img src="Images/Ghost_of_Tsushima_Website-01.png" alt="UIデザイン:Ghost of Tsushima" loading="lazy">
+    <img src="Images/Home_Page.png" alt="UIデザイン:ホームページ" loading="lazy">
+    <img src="Images/Overwatch_1-01-01.png" alt="UIデザイン:Overwatch" loading="lazy">
   </div>
-</section>
+</div></section>
 
-<section id="Illustrations" class="illustrations-section">
-  <h1 class="illustrations-title">イラスト</h1>
-  <div class="illustrations-grid">
-    <div class="illustration-card"><img src="/Images/IMG_20200521_000451.jpg" alt="Illustration 1"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20200521_000734.jpg" alt="Illustration 2"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20200924_153545.jpg" alt="Illustration 3"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20201222_123707.jpg" alt="Illustration 4"></div>
-    <div class="illustration-card"><img src="/Images/KANEKI-SAMURAI TRASH-01.png" alt="Illustration 5"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20210424_155821_336.jpg" alt="Illustration 6"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20210806_135936.jpg" alt="Illustration 7"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20211126_235408__01.jpg" alt="Illustration 8"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20230426_142358.jpg" alt="Illustration 9"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20230526_193747.jpg" alt="Illustration 10"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20211126_235408__01.jpg" alt="Illustration 10"></div>
-    <div class="illustration-card"><img src="/Images/IMG_20230526_195045.jpg" alt="Illustration 10"></div>
+<section id="art"><div class="wrap">
+  <h2>イラスト</h2>
+  <p class="lead">趣味で描いているイラストです。</p>
+  <div class="grid" id="gallery-art">
+    <img src="Images/KANEKI-SAMURAI%20TRASH-01.png" alt="イラスト:金木" loading="lazy">
+    <img src="Images/IMG_20200521_000451.jpg" alt="イラスト" loading="lazy">
+    <img src="Images/IMG_20200924_153545.jpg" alt="イラスト" loading="lazy">
+    <img src="Images/IMG_20201222_123707.jpg" alt="イラスト" loading="lazy">
+    <img src="Images/IMG_20210424_155821_336.jpg" alt="イラスト" loading="lazy">
+    <img src="Images/IMG_20211126_235408__01.jpg" alt="イラスト" loading="lazy">
+    <img src="Images/IMG_20230426_142358.jpg" alt="イラスト" loading="lazy">
+    <img src="Images/IMG_20230526_193747.jpg" alt="イラスト" loading="lazy">
   </div>
-</section>
+</div></section>
+</main>
 
+<footer id="contact"><div class="wrap">
+  <h2>ご連絡ください</h2>
+  <p class="lead" style="margin:0 auto 24px">2027年4月入社のゲームプログラマー職を探しています。</p>
+  <a class="mail" href="mailto:you@example.com">you@example.com</a><br>
+  <a href="#">GitHub</a><a href="#">LinkedIn</a><a href="#">履歴書(PDF)</a>
+</div></footer>
 
-  <section id="movies" class="movies-section">
-  <video autoplay muted loop playsinline class="bg-video">
-    <source src="/Images/Untitled video - Made with Clipchamp.mp4" type="video/mp4">
-  </video>
-
-  <!-- Dark overlay -->
-  <div class="overlay"></div>
-
-  <!-- Dot Navigation -->
-  <div class="dot-nav">
-    <a href="#Me" class="dot"><span></span><label>私</label></a>
-    <a href="#Work" class="dot"><span></span><label>作品</label></a>
-    <a href="#Illustrations" class="dot"><span></span><label>イラスト</label></a>
-    <a href="#movies" class="dot"><span></span><label>待っている</label></a>
-  </div>
-  <script src="script.js"></script>
+<dialog id="zoom"><img alt=""></dialog>
+<script>
+const hero=document.querySelector('.hero');
+if(matchMedia('(pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+  hero.addEventListener('pointermove',e=>{const r=hero.getBoundingClientRect();hero.style.setProperty('--x',(e.clientX-r.left)+'px');hero.style.setProperty('--y',(e.clientY-r.top)+'px')});
+}else{hero.style.setProperty('--x','50%');hero.style.setProperty('--y','45%')}
+const dlg=document.getElementById('zoom'),big=dlg.querySelector('img');
+document.querySelectorAll('#gallery-ui img,#gallery-art img').forEach(i=>{i.tabIndex=0;const open=()=>{big.src=i.src;big.alt=i.alt;dlg.showModal()};i.onclick=open;i.onkeydown=e=>{if(e.key==='Enter')open()}});
+dlg.onclick=()=>dlg.close();
+</script>
 </body>
 </html>

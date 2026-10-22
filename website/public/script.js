@@ -195,7 +195,7 @@ if (location.protocol === "file:") {
     ".about > img", ".about .section-label", ".about h2", ".about > div > p", ".facts li",
     "section:not(#about) > .wrap > .section-label",
     "section:not(#about) > .wrap > h2", "section:not(#about) > .wrap > .lead",
-    ".project > div", ".gallery img", ".site-footer .section-label",
+    ".project > div", ".skill-group h3", ".skill-list li", ".gallery img", ".site-footer .section-label",
     ".site-footer h2", ".site-footer .lead", ".site-footer .mail",
     '.site-footer a[href*="github"]', ".footer-bottom"
   ].join(", ");
@@ -245,6 +245,7 @@ if (location.protocol === "file:") {
     }
   });
 })();
+
 
 
 
